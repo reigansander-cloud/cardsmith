@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase } from '@/api/base44Client';
 import { useAuth } from '@/lib/AuthContext';
@@ -57,18 +57,21 @@ export default function AdminImport() {
   // Lets the import be started from a script as well as the file picker.
   window.cardsmithImport = run;
 
-  // The old site can also drop its export into the private "imports" bucket
-  // (only admins can read it); this picks up the newest one.
-  async function fromServer() {
-    say('Looking for an export sent from the old site…');
-    const { data: files, error } = await supabase.storage.from('imports').list('', { sortBy: { column: 'created_at', order: 'desc' } });
-    const file = (files || []).find((f) => f.name.endsWith('.json'));
-    if (error || !file) { say('No export found yet.'); return; }
-    const { data: blob, error: dlErr } = await supabase.storage.from('imports').download(file.name);
-    if (dlErr) { say(`Could not read it: ${dlErr.message}`); return; }
-    await run(JSON.parse(await blob.text()));
-    if (window.__cardsmithImportResult?.ok) await supabase.storage.from('imports').remove([file.name]);
-  }
+  // The old site (opened as window.opener, or opening this page) can hand
+  // its export over directly: it waits for "ready", then posts the data.
+  // Only accepted from the old CardSmith site, and only by an admin.
+  const runRef = useRef(run);
+  runRef.current = run;
+  useEffect(() => {
+    if (user?.role !== 'admin') return undefined;
+    const onMessage = (e) => {
+      if (!/^https:\/\/[a-z0-9-]+\.base44\.app$/.test(e.origin)) return;
+      if (e.data?.type === 'cardsmith-export' && e.data.payload?.entities) runRef.current(e.data.payload);
+    };
+    window.addEventListener('message', onMessage);
+    try { window.opener?.postMessage({ type: 'cardsmith-import-ready' }, '*'); } catch { /* no opener */ }
+    return () => window.removeEventListener('message', onMessage);
+  }, [user?.role]);
 
   async function onFile(e) {
     const file = e.target.files?.[0];
@@ -88,11 +91,7 @@ export default function AdminImport() {
         Choose the cardsmith-export.json file downloaded from the old site. Records keep their ids, so
         running it again updates instead of duplicating.
       </p>
-      <div className="flex flex-wrap items-center gap-4 mb-6">
-        <Button onClick={fromServer} disabled={busy}>Import export sent from the old site</Button>
-        <span className="text-sm text-muted-foreground">or choose the file:</span>
-        <input type="file" accept=".json,application/json" onChange={onFile} disabled={busy} />
-      </div>
+      <input type="file" accept=".json,application/json" onChange={onFile} disabled={busy} className="mb-6 block" />
       <pre className="text-xs bg-muted p-4 rounded whitespace-pre-wrap min-h-[6rem]">{log.join('\n') || 'Waiting for a file…'}</pre>
       {done && <Button asChild className="mt-6"><Link to="/clans">Open Clans</Link></Button>}
     </div>
