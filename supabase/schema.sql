@@ -647,3 +647,12 @@ begin
              using (bucket_id = 'uploads') with check (bucket_id = 'uploads')$p$;
   end if;
 end $$;
+
+-- ---------------------------------------------------------------------------
+-- Keep-alive: the "Keep Supabase awake" GitHub workflow calls this every few
+-- days so the free project isn't paused for inactivity. It reads nothing.
+-- ---------------------------------------------------------------------------
+create or replace function public.keepalive() returns integer
+language sql stable as $$ select 1 $$;
+revoke execute on function public.keepalive() from public;
+grant execute on function public.keepalive() to anon, authenticated;

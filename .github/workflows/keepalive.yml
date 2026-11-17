@@ -1,0 +1,24 @@
+# Free Supabase projects pause after about a week with no activity.
+# This pings the database every 3 days so CardSmith never goes to sleep.
+# (GitHub turns scheduled jobs off in a repo with no commits for 60 days;
+# if that happens, Actions -> Keep Supabase awake -> "Enable workflow".)
+name: Keep Supabase awake
+
+on:
+  schedule:
+    - cron: '17 9 */3 * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ping the database
+        run: |
+          URL=$(sed -n "s/^export const SUPABASE_URL = '\(.*\)';/\1/p" src/config.js)
+          KEY=$(sed -n "s/^export const SUPABASE_ANON_KEY = '\(.*\)';/\1/p" src/config.js)
+          code=$(curl -s -o /tmp/out -w '%{http_code}' -X POST "$URL/rest/v1/rpc/keepalive" \
+            -H "apikey: $KEY" -H "Content-Type: application/json" -d '{}')
+          echo "HTTP $code: $(cat /tmp/out)"
+          test "$code" = "200"
