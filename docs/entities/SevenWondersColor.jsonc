@@ -1,0 +1,27 @@
+{
+  "name": "SevenWondersColor",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the card color"
+    },
+    "color": {
+      "type": "string",
+      "description": "Hex color used for the swatch"
+    },
+    "baseImageUrl": {
+      "type": "string",
+      "description": "URL of the matching base/template image"
+    },
+    "bannerImageUrl": {
+      "type": "string",
+      "description": "URL of the matching cost banner image"
+    }
+  },
+  "required": [
+    "name",
+    "baseImageUrl",
+    "bannerImageUrl"
+  ]
+}

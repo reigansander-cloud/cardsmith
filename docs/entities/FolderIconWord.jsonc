@@ -1,0 +1,29 @@
+{
+  "name": "FolderIconWord",
+  "type": "object",
+  "properties": {
+    "folder_id": {
+      "type": "string",
+      "description": "ID of the Folder this icon-word belongs to, or '__global__' for the clans-wide default managed from the Clans Settings dialog"
+    },
+    "word": {
+      "type": "string",
+      "description": "Word that will be replaced by its icon in ability text. Takes priority over bold (keywords) and capitalize."
+    },
+    "icon_url": {
+      "type": "string",
+      "description": "URL of the icon image that replaces the word in ability text"
+    }
+  },
+  "required": [
+    "folder_id",
+    "word",
+    "icon_url"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

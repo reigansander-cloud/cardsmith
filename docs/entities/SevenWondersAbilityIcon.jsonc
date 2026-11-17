@@ -1,0 +1,18 @@
+{
+  "name": "SevenWondersAbilityIcon",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the ability icon"
+    },
+    "url": {
+      "type": "string",
+      "description": "URL of the ability icon image"
+    }
+  },
+  "required": [
+    "name",
+    "url"
+  ]
+}

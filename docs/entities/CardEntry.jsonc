@@ -1,0 +1,264 @@
+{
+  "name": "CardEntry",
+  "type": "object",
+  "properties": {
+    "folder_id": {
+      "type": "string",
+      "description": "ID of the Folder this entry belongs to"
+    },
+    "name": {
+      "type": "string",
+      "description": "Card name. For Income entries this stores the uneditable random number used to identify the entry; the card itself always renders 'INCOME'.",
+      "default": ""
+    },
+    "cost": {
+      "type": "number",
+      "description": "Card cost (number of cost icons)",
+      "default": 0
+    },
+    "cost_icons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "URLs of the icons chosen for the cost bar",
+      "default": []
+    },
+    "cost_question": {
+      "type": "array",
+      "items": {
+        "type": "boolean"
+      },
+      "description": "Parallel to cost_icons \u2014 when true, that cost icon renders a '?' badge on its top-left corner with a contrasting border",
+      "default": []
+    },
+    "influence": {
+      "type": "string",
+      "description": "Influence value (blank means X / hidden depending on supertype)",
+      "default": ""
+    },
+    "ability": {
+      "type": "string",
+      "description": "Ability text (supports [b]..[/b], [i]..[/i], [color:hex]..[/color], [icon:url])",
+      "default": ""
+    },
+    "flavor_text": {
+      "type": "string",
+      "description": "Optional flavor text shown below the ability on the card at 1/3 the ability font size, italics. Addable from the entry's stat row dropdown ('Flavor Text').",
+      "default": ""
+    },
+    "subtype": {
+      "type": "string",
+      "description": "Subtype label",
+      "default": ""
+    },
+    "supertype": {
+      "type": "string",
+      "description": "Supertype name (a FolderSupertype name) or 'token'",
+      "default": "permanent"
+    },
+    "token_type": {
+      "type": "string",
+      "description": "For token entries, the FolderSupertype name whose template determines the render style",
+      "default": "permanent"
+    },
+    "stats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Additional stats (name, value, color). Custom stats are also saved to the folder.",
+      "default": []
+    },
+    "fabled": {
+      "type": "boolean",
+      "description": "When true, 'Fabled' is shown before the supertype and only one copy may be added to a deck",
+      "default": false
+    },
+    "basic": {
+      "type": "boolean",
+      "description": "When true, 'Basic' is shown before the supertype and up to 6 copies may be added to a deck",
+      "default": false
+    },
+    "needs_review": {
+      "type": "boolean",
+      "description": "Whether this entry is flagged for review",
+      "default": false
+    },
+    "flagged_by_id": {
+      "type": "string",
+      "description": "User ID of whoever most recently flagged this entry for review",
+      "default": ""
+    },
+    "flagged_by_name": {
+      "type": "string",
+      "description": "Display name of whoever most recently flagged this entry for review",
+      "default": ""
+    },
+    "income_symbol": {
+      "type": "string",
+      "description": "For Income entries, the URL of the chosen type symbol (one of the 3 fixed income symbols)",
+      "default": ""
+    },
+    "bonus_mode": {
+      "type": "string",
+      "enum": [
+        "cost",
+        "ability"
+      ],
+      "description": "For Income entries, whether the bonus section renders as a cost bar or a second ability",
+      "default": "cost"
+    },
+    "bonus_cost_icons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "For Income entries, the icons in the bonus cost bar (when bonus_mode is 'cost')",
+      "default": []
+    },
+    "bonus_ability": {
+      "type": "string",
+      "description": "For Income entries, the text of the second ability (when bonus_mode is 'ability')",
+      "default": ""
+    },
+    "text_color": {
+      "type": "string",
+      "description": "Override text color (hex). When set, all black text layers render in this color instead. Used for entries on dark folder backgrounds (e.g. AI cards).",
+      "default": ""
+    },
+    "counterparts": {
+      "type": "array",
+      "description": "Alternative faces for this card, each with the same options as a normal entry. In play a card rotates front -> each counterpart -> facedown; printed as their own cards; used for the flipped face of the TTS export.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "default": ""
+          },
+          "cost": {
+            "type": "number",
+            "default": 0
+          },
+          "cost_icons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "cost_question": {
+            "type": "array",
+            "items": {
+              "type": "boolean"
+            },
+            "default": []
+          },
+          "influence": {
+            "type": "string",
+            "default": ""
+          },
+          "ability": {
+            "type": "string",
+            "default": ""
+          },
+          "flavor_text": {
+            "type": "string",
+            "default": ""
+          },
+          "subtype": {
+            "type": "string",
+            "default": ""
+          },
+          "supertype": {
+            "type": "string",
+            "default": "permanent"
+          },
+          "token_type": {
+            "type": "string",
+            "default": "permanent"
+          },
+          "stats": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string"
+                }
+              }
+            },
+            "default": []
+          },
+          "fabled": {
+            "type": "boolean",
+            "description": "Counterpart-only cosmetic flag: renders 'Fabled' before the supertype on this face. Has no deck/play effect.",
+            "default": false
+          },
+          "basic": {
+            "type": "boolean",
+            "description": "Counterpart-only cosmetic flag: renders 'Basic' before the supertype on this face. Has no deck/play effect.",
+            "default": false
+          },
+          "income_symbol": {
+            "type": "string",
+            "default": ""
+          },
+          "bonus_mode": {
+            "type": "string",
+            "enum": [
+              "cost",
+              "ability"
+            ],
+            "default": "cost"
+          },
+          "bonus_cost_icons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "bonus_ability": {
+            "type": "string",
+            "default": ""
+          },
+          "text_color": {
+            "type": "string",
+            "default": ""
+          }
+        }
+      },
+      "default": []
+    }
+  },
+  "required": [
+    "folder_id",
+    "name",
+    "supertype"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

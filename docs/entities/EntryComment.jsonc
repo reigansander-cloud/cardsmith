@@ -1,0 +1,33 @@
+{
+  "name": "EntryComment",
+  "type": "object",
+  "properties": {
+    "entry_id": {
+      "type": "string",
+      "description": "ID of the CardEntry this comment belongs to"
+    },
+    "text": {
+      "type": "string",
+      "description": "Comment body"
+    },
+    "author_name": {
+      "type": "string",
+      "description": "Display name of the commenter",
+      "default": "Anonymous"
+    },
+    "entry_owner_id": {
+      "type": "string",
+      "description": "ID of the entry's owner, so the owner can delete all comments when unflagging"
+    }
+  },
+  "required": [
+    "entry_id",
+    "text"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

@@ -1,0 +1,326 @@
+{
+  "name": "Game",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": [
+        "lobby",
+        "playing",
+        "ended"
+      ],
+      "default": "lobby",
+      "description": "Game lifecycle status"
+    },
+    "host_id": {
+      "type": "string",
+      "default": "",
+      "description": "User ID of the game host"
+    },
+    "host_name": {
+      "type": "string",
+      "default": "",
+      "description": "Display name of the host"
+    },
+    "round": {
+      "type": "number",
+      "default": 0,
+      "description": "Current round number"
+    },
+    "phase": {
+      "type": "string",
+      "enum": [
+        "main",
+        "income_select",
+        "income_reveal"
+      ],
+      "default": "main",
+      "description": "Current game phase"
+    },
+    "players": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "default": ""
+          },
+          "user_name": {
+            "type": "string",
+            "default": ""
+          },
+          "deck_id": {
+            "type": "string",
+            "default": ""
+          },
+          "deck_name": {
+            "type": "string",
+            "default": ""
+          },
+          "ready": {
+            "type": "boolean",
+            "default": false
+          },
+          "is_ai": {
+            "type": "boolean",
+            "default": false
+          },
+          "support": {
+            "type": "number",
+            "default": 0
+          },
+          "energy": {
+            "type": "number",
+            "default": 0
+          },
+          "flags": {
+            "type": "number",
+            "default": 0
+          },
+          "other": {
+            "type": "number",
+            "default": 0
+          },
+          "end_round_pressed": {
+            "type": "boolean",
+            "default": false
+          },
+          "income_selected": {
+            "type": "boolean",
+            "default": false
+          },
+          "income_entry_id": {
+            "type": "string",
+            "default": "",
+            "description": "Entry ID of the income card this player selected, stored per-player to avoid state blob conflicts"
+          },
+          "income_ack": {
+            "type": "boolean",
+            "default": false
+          },
+          "battlefield_split_done": {
+            "type": "boolean",
+            "default": false,
+            "description": "True once this player has split their battlefield deck into two piles at game start"
+          },
+          "battlefield_piles": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "default": [],
+            "description": "The player's two battlefield piles [pile0, pile1] chosen at game start; each battlefield area draws from its own pile"
+          }
+        }
+      },
+      "default": [],
+      "description": "Player info array (index 0 = host, index 1 = opponent)"
+    },
+    "state": {
+      "type": "object",
+      "default": {},
+      "description": "Small coordination blob: clash ({battlefield_id, participants, staging, selections, ready}) and coord_version. Bulk game data used to live here too but has moved to its own top-level fields below (hands, decks, battlefields, etc.) so a single move doesn't have to resend everything."
+    },
+    "hands": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "default": [],
+      "description": "Per-player hand of cards"
+    },
+    "decks": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {}
+      },
+      "default": [],
+      "description": "Per-player draw pile"
+    },
+    "tokens": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "default": [],
+      "description": "Per-player token piles"
+    },
+    "discards": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "default": [],
+      "description": "Per-player discard/graveyard pile"
+    },
+    "income_options": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "default": [],
+      "description": "Per-player available income cards"
+    },
+    "selected_income": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "Per-player selected income entry id"
+    },
+    "revealed_income": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "default": [],
+      "description": "Income cards revealed this round"
+    },
+    "battlefields": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "default": [],
+      "description": "Shared battlefield areas, each with per-player sides"
+    },
+    "battlefield_pools": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "default": [],
+      "description": "Per-player [pile0, pile1] battlefield draw pools"
+    },
+    "bf_dealt": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether battlefield areas have been dealt"
+    },
+    "rearguards": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "default": [],
+      "description": "Per-player rearguard zone"
+    },
+    "side_cards": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "default": [],
+      "description": "Per-player side zone"
+    },
+    "banished": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "default": [],
+      "description": "Per-player banished pile"
+    },
+    "deleted": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "default": [],
+      "description": "Per-player deleted pile"
+    },
+    "new_zones": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "default": [],
+      "description": "Per-player custom new zone"
+    },
+    "new_zone_enabled": {
+      "type": "array",
+      "items": {
+        "type": "boolean"
+      },
+      "default": [],
+      "description": "Per-player whether the new zone is enabled"
+    },
+    "custom_sections": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "default": [],
+      "description": "Per-player custom token sidebar sections"
+    },
+    "arrows": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "default": [],
+      "description": "Drawn connection arrows"
+    },
+    "last_update_client_id": {
+      "type": "string",
+      "default": "",
+      "description": "Client ID of the last user to update the game, used to skip echo-back in realtime subscriptions"
+    },
+    "update_seq": {
+      "type": "number",
+      "default": 0,
+      "description": "Monotonically increasing counter stamped on every write. Clients use it to reject an out-of-order realtime event (one that arrives after a newer write has already been applied) instead of blindly applying whatever lands last."
+    }
+  },
+  "required": [
+    "status"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

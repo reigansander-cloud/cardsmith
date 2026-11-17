@@ -1,0 +1,19 @@
+{
+  "name": "CommentRead",
+  "type": "object",
+  "properties": {
+    "card_id": {
+      "type": "string",
+      "description": "ID of the DatabaseCard this read-state tracks"
+    },
+    "last_read_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO timestamp of the newest comment the user has read on this card"
+    }
+  },
+  "required": [
+    "card_id",
+    "last_read_date"
+  ]
+}

@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&family=Albert+Sans:wght@300;400;500;600;700&family=Poiret+One&family=Rye&display=swap');
+@import url('https://fonts.cdnfonts.com/css/alte-din-1451-mittelschrift-gepraegt-2');
+@import url('https://fonts.cdnfonts.com/css/naluka');
+
+@font-face {
+  font-family: 'CaesarDressing';
+  src: url('https://bybyprzulswlemzhloqu.supabase.co/storage/v1/object/public/uploads/app-assets/7da289846a_22edf7fa4_CaesarDressing-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 15% 8%;
+    --foreground: 40 20% 92%;
+    --card: 220 13% 12%;
+    --card-foreground: 40 20% 92%;
+    --popover: 220 14% 10%;
+    --popover-foreground: 40 20% 92%;
+    --primary: 38 80% 55%;
+    --primary-foreground: 220 15% 8%;
+    --secondary: 220 12% 18%;
+    --secondary-foreground: 40 15% 85%;
+    --muted: 220 12% 16%;
+    --muted-foreground: 220 10% 55%;
+    --accent: 38 70% 48%;
+    --accent-foreground: 220 15% 8%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 12% 20%;
+    --input: 220 12% 20%;
+    --ring: 38 80% 55%;
+    --chart-1: 38 80% 55%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    --font-heading: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    --sidebar-background: 220 13% 10%;
+    --sidebar-foreground: 40 15% 85%;
+    --sidebar-primary: 38 80% 55%;
+    --sidebar-primary-foreground: 220 15% 8%;
+    --sidebar-accent: 220 12% 16%;
+    --sidebar-accent-foreground: 40 15% 85%;
+    --sidebar-border: 220 12% 20%;
+    --sidebar-ring: 38 80% 55%;
+  }
+
+  .dark {
+    --background: 220 15% 8%;
+    --foreground: 40 20% 92%;
+    --card: 220 13% 12%;
+    --card-foreground: 40 20% 92%;
+    --popover: 220 14% 10%;
+    --popover-foreground: 40 20% 92%;
+    --primary: 38 80% 55%;
+    --primary-foreground: 220 15% 8%;
+    --secondary: 220 12% 18%;
+    --secondary-foreground: 40 15% 85%;
+    --muted: 220 12% 16%;
+    --muted-foreground: 220 10% 55%;
+    --accent: 38 70% 48%;
+    --accent-foreground: 220 15% 8%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 12% 20%;
+    --input: 220 12% 20%;
+    --ring: 38 80% 55%;
+    --chart-1: 38 80% 55%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 220 13% 10%;
+    --sidebar-foreground: 40 15% 85%;
+    --sidebar-primary: 38 80% 55%;
+    --sidebar-primary-foreground: 220 15% 8%;
+    --sidebar-accent: 220 12% 16%;
+    --sidebar-accent-foreground: 40 15% 85%;
+    --sidebar-border: 220 12% 20%;
+    --sidebar-ring: 38 80% 55%;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Play game: hide scrollbars everywhere — the mouse wheel scrolls instead.
+     Also drop the reserved scrollbar gutter so no empty gap is left. */
+  .play-game, .play-game * {
+    scrollbar-width: none !important;
+    scrollbar-gutter: auto !important;
+  }
+  .play-game::-webkit-scrollbar,
+  .play-game *::-webkit-scrollbar {
+    display: none !important;
+  }
+}

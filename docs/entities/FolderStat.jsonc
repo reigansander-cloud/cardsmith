@@ -1,0 +1,29 @@
+{
+  "name": "FolderStat",
+  "type": "object",
+  "properties": {
+    "folder_id": {
+      "type": "string",
+      "description": "ID of the Folder this custom stat belongs to"
+    },
+    "name": {
+      "type": "string",
+      "description": "Stat name (e.g. Atk, Amr, Dur, or a custom name)"
+    },
+    "color": {
+      "type": "string",
+      "description": "Hex color used when rendering this stat",
+      "default": "#9ca3af"
+    }
+  },
+  "required": [
+    "folder_id",
+    "name"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

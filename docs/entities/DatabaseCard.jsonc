@@ -1,0 +1,49 @@
+{
+  "name": "DatabaseCard",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Card name \u2014 overrides existing cards with the same name"
+    },
+    "template": {
+      "type": "string",
+      "description": "Template key this card was saved from (e.g. clans, free_canvas, seven_wonders)"
+    },
+    "tab": {
+      "type": "string",
+      "description": "User-defined database tab/category this card belongs to",
+      "default": "General"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags assigned to this card (scoped to its tab)",
+      "default": []
+    },
+    "cost": {
+      "type": "number",
+      "description": "Card cost \u2014 auto-derived from template data on save (7 Wonders: cost icon count; Playing Card: numeric value; Free Canvas: crowned cost bar icon count). Editable from the database.",
+      "default": 0
+    },
+    "png_url": {
+      "type": "string",
+      "description": "URL of the saved PNG preview"
+    },
+    "cs_url": {
+      "type": "string",
+      "description": "URL of the saved CS (Card Smith) project file"
+    },
+    "needs_review": {
+      "type": "boolean",
+      "description": "Whether this card is flagged for review",
+      "default": false
+    }
+  },
+  "required": [
+    "name",
+    "template"
+  ]
+}

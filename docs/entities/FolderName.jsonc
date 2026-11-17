@@ -1,0 +1,24 @@
+{
+  "name": "FolderName",
+  "type": "object",
+  "properties": {
+    "folder_id": {
+      "type": "string",
+      "description": "ID of the Folder this unused name belongs to"
+    },
+    "name": {
+      "type": "string",
+      "description": "An unused card name available to assign to entries in this folder"
+    }
+  },
+  "required": [
+    "folder_id",
+    "name"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

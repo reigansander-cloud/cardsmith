@@ -1,0 +1,28 @@
+{
+  "name": "CardVersion",
+  "type": "object",
+  "properties": {
+    "card_id": {
+      "type": "string",
+      "description": "ID of the DatabaseCard this version belongs to"
+    },
+    "version_number": {
+      "type": "number",
+      "description": "Sequential version number"
+    },
+    "png_url": {
+      "type": "string",
+      "description": "URL of this version's PNG preview"
+    },
+    "cs_url": {
+      "type": "string",
+      "description": "URL of this version's CS project file"
+    }
+  },
+  "required": [
+    "card_id",
+    "version_number",
+    "png_url",
+    "cs_url"
+  ]
+}

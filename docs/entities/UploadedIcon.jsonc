@@ -1,0 +1,18 @@
+{
+  "name": "UploadedIcon",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the icon"
+    },
+    "url": {
+      "type": "string",
+      "description": "URL of the icon image"
+    }
+  },
+  "required": [
+    "name",
+    "url"
+  ]
+}

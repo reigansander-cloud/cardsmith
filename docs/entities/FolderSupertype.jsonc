@@ -1,0 +1,43 @@
+{
+  "name": "FolderSupertype",
+  "type": "object",
+  "properties": {
+    "folder_id": {
+      "type": "string",
+      "description": "'__global__' for the clans-wide default supertypes managed from the Clans Settings dialog, or a specific Folder id for folder-specific supertypes managed from that folder's settings",
+      "default": "__global__"
+    },
+    "name": {
+      "type": "string",
+      "description": "Supertype label (tab name). Stored verbatim; displayed capitalized."
+    },
+    "template_type": {
+      "type": "string",
+      "enum": [
+        "permanent",
+        "instant",
+        "modifier",
+        "battlefield",
+        "income"
+      ],
+      "description": "Render template/layout used by entries of this supertype",
+      "default": "permanent"
+    },
+    "sort_order": {
+      "type": "number",
+      "description": "Display order in the tab row",
+      "default": 0
+    }
+  },
+  "required": [
+    "folder_id",
+    "name",
+    "template_type"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "FolderKeyword",
+  "type": "object",
+  "properties": {
+    "folder_id": {
+      "type": "string",
+      "description": "ID of the Folder this keyword belongs to"
+    },
+    "word": {
+      "type": "string",
+      "description": "Keyword that always renders bolded in ability text"
+    },
+    "value": {
+      "type": "number",
+      "default": 0,
+      "description": "Point value subtracted when this keyword appears in a card's ability, used by the review evaluation"
+    }
+  },
+  "required": [
+    "folder_id",
+    "word"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

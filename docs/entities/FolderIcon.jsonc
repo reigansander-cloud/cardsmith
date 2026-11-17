@@ -1,0 +1,33 @@
+{
+  "name": "FolderIcon",
+  "type": "object",
+  "properties": {
+    "folder_id": {
+      "type": "string",
+      "description": "ID of the Folder this icon belongs to"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name for the icon"
+    },
+    "url": {
+      "type": "string",
+      "description": "URL of the icon image"
+    },
+    "value": {
+      "type": "number",
+      "default": 0,
+      "description": "Point value contributed when this icon appears in a card's cost bar, used by the review evaluation"
+    }
+  },
+  "required": [
+    "folder_id",
+    "url"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

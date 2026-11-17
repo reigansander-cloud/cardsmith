@@ -1,0 +1,25 @@
+{
+  "name": "Folder",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Folder name",
+      "default": "New Folder"
+    },
+    "color": {
+      "type": "string",
+      "description": "Background color (hex) for entries in this folder, shown in the folder, deck manager, and review",
+      "default": ""
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

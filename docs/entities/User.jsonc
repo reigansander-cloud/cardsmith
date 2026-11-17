@@ -1,0 +1,54 @@
+{
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "The role of the user in the app",
+      "enum": [
+        "admin",
+        "user"
+      ]
+    },
+    "play_preferences": {
+      "type": "object",
+      "description": "Per-user play UI preferences persisted across all games: tools toggles, zoom hover settings, and zoom scale.",
+      "default": {},
+      "properties": {
+        "adjustInfluence": {
+          "type": "object",
+          "description": "Live-strength toggles per zone (clash, rearguard, hand)",
+          "default": {}
+        },
+        "smallTokens": {
+          "type": "boolean",
+          "default": false
+        },
+        "zoomHover": {
+          "type": "boolean",
+          "default": true
+        },
+        "instantZoomHover": {
+          "type": "boolean",
+          "default": false
+        },
+        "liveStrengthPopup": {
+          "type": "boolean",
+          "default": false
+        },
+        "zoomScale": {
+          "type": "number",
+          "default": 3.5
+        },
+        "toolToggles": {
+          "type": "object",
+          "description": "Top-bar tool visibility toggles (income, dice, random)",
+          "default": {}
+        }
+      }
+    }
+  },
+  "required": [
+    "role"
+  ],
+  "name": "User",
+  "type": "object"
+}

@@ -1,0 +1,56 @@
+{
+  "name": "DeckSetting",
+  "type": "object",
+  "properties": {
+    "copy_limits": {
+      "type": "object",
+      "properties": {
+        "regular": {
+          "type": "object",
+          "properties": {
+            "fabled": {
+              "type": "number",
+              "default": 1
+            },
+            "normal": {
+              "type": "number",
+              "default": 3
+            },
+            "basic": {
+              "type": "number",
+              "default": 6
+            }
+          },
+          "description": "Copy limits for regular (non-battlefield) cards"
+        },
+        "battlefield": {
+          "type": "object",
+          "properties": {
+            "fabled": {
+              "type": "number",
+              "default": 1
+            },
+            "normal": {
+              "type": "number",
+              "default": 2
+            },
+            "basic": {
+              "type": "number",
+              "default": 4
+            }
+          },
+          "description": "Copy limits for battlefield entries"
+        }
+      },
+      "description": "Max copies per card type, split into regular and battlefield sections. Applies globally to all decks.",
+      "default": {}
+    }
+  },
+  "required": [],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

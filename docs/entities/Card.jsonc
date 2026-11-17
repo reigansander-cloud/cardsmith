@@ -1,0 +1,33 @@
+{
+  "name": "Card",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Card name for gallery identification"
+    },
+    "template": {
+      "type": "string",
+      "enum": [
+        "tactical",
+        "clans",
+        "glimpses",
+        "seven_wonders"
+      ],
+      "description": "Which template this card uses"
+    },
+    "data": {
+      "type": "object",
+      "description": "Template-specific card data stored as JSON"
+    },
+    "thumbnail_url": {
+      "type": "string",
+      "description": "URL of card thumbnail for gallery display"
+    }
+  },
+  "required": [
+    "name",
+    "template",
+    "data"
+  ]
+}

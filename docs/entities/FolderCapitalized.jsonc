@@ -1,0 +1,24 @@
+{
+  "name": "FolderCapitalized",
+  "type": "object",
+  "properties": {
+    "folder_id": {
+      "type": "string",
+      "description": "ID of the Folder this capitalized word belongs to"
+    },
+    "word": {
+      "type": "string",
+      "description": "Word whose first letter is always capitalized in ability text"
+    }
+  },
+  "required": [
+    "folder_id",
+    "word"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

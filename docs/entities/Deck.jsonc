@@ -1,0 +1,92 @@
+{
+  "name": "Deck",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Deck name"
+    },
+    "cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "card_id": {
+            "type": "string",
+            "description": "ID of the DatabaseCard in this deck slot"
+          },
+          "copies": {
+            "type": "number",
+            "description": "Number of copies of this card in the deck",
+            "default": 1
+          }
+        },
+        "required": [
+          "card_id",
+          "copies"
+        ]
+      },
+      "description": "Cards in this deck with their copy counts",
+      "default": []
+    },
+    "last_edited_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp secretly saved when the decklist was last exited; used by the 'new cards only' filter to show entries created since the last visit",
+      "default": ""
+    },
+    "folder_id": {
+      "type": "string",
+      "description": "ID of the associated Folder. When set, the deck draws exclusively from this folder's entries and all the folder's token entries are auto-included at 1 copy each (locked, not in cards).",
+      "default": ""
+    },
+    "pipelines": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique pipeline id"
+          },
+          "name": {
+            "type": "string",
+            "description": "Pipeline label"
+          },
+          "card_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Card entry IDs assigned to this pipeline, in display order",
+            "default": []
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "card_ids"
+        ]
+      },
+      "description": "Custom pipelines for the deck info view. Cards not in any custom pipeline fall into the default Deck List column.",
+      "default": []
+    },
+    "card_order": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Ordered card entry IDs for the default 'Deck List' pipeline column in the deck info view. Cards in the deck but absent from this list are appended in deck order.",
+      "default": []
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

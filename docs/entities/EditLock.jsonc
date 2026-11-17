@@ -1,0 +1,68 @@
+{
+  "name": "EditLock",
+  "type": "object",
+  "properties": {
+    "item_type": {
+      "type": "string",
+      "enum": [
+        "entry",
+        "rules",
+        "folder_name"
+      ],
+      "description": "Kind of item being locked"
+    },
+    "item_id": {
+      "type": "string",
+      "description": "ID of the locked item (folder id for folder_name)"
+    },
+    "folder_id": {
+      "type": "string",
+      "description": "Folder this lock belongs to"
+    },
+    "user_id": {
+      "type": "string",
+      "description": "User holding the lock"
+    },
+    "user_name": {
+      "type": "string",
+      "description": "Display name of the user holding the lock"
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp of the lock creation / last refresh"
+    },
+    "context": {
+      "type": "string",
+      "enum": [
+        "folder",
+        "review"
+      ],
+      "description": "Where the edit is happening \u2014 'folder' for the folder page, 'review' for the review page",
+      "default": "folder"
+    },
+    "supertype": {
+      "type": "string",
+      "description": "For entry locks, the entry's supertype \u2014 denormalized at lock-acquire time so EditingUsersBar can render the chip label without an extra CardEntry fetch",
+      "default": ""
+    },
+    "entry_name": {
+      "type": "string",
+      "description": "For entry locks, the entry's name \u2014 denormalized at lock-acquire time for display without an extra fetch",
+      "default": ""
+    }
+  },
+  "required": [
+    "item_type",
+    "item_id",
+    "folder_id",
+    "user_id",
+    "ts"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

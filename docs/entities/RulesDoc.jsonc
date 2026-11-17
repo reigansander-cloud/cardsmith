@@ -1,0 +1,25 @@
+{
+  "name": "RulesDoc",
+  "type": "object",
+  "properties": {
+    "folder_id": {
+      "type": "string",
+      "description": "Folder ID, or '__global__' for the clans-wide rules",
+      "default": "__global__"
+    },
+    "content": {
+      "type": "string",
+      "description": "HTML content of the rules document",
+      "default": ""
+    }
+  },
+  "required": [
+    "folder_id"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}

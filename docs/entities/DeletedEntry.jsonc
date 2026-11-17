@@ -1,0 +1,138 @@
+{
+  "name": "DeletedEntry",
+  "type": "object",
+  "properties": {
+    "folder_id": {
+      "type": "string",
+      "description": "ID of the Folder this entry belonged to before deletion"
+    },
+    "name": {
+      "type": "string",
+      "description": "Card name",
+      "default": ""
+    },
+    "cost": {
+      "type": "number",
+      "description": "Card cost (number of cost icons)",
+      "default": 0
+    },
+    "cost_icons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "URLs of the icons chosen for the cost bar",
+      "default": []
+    },
+    "cost_question": {
+      "type": "array",
+      "items": {
+        "type": "boolean"
+      },
+      "description": "Parallel to cost_icons \u2014 when true, that cost icon rendered a '?' badge on its top-left corner",
+      "default": []
+    },
+    "influence": {
+      "type": "string",
+      "description": "Influence value",
+      "default": ""
+    },
+    "ability": {
+      "type": "string",
+      "description": "Ability text (markup)",
+      "default": ""
+    },
+    "flavor_text": {
+      "type": "string",
+      "description": "Optional flavor text shown below the ability on the card at 1/3 the ability font size, italics",
+      "default": ""
+    },
+    "subtype": {
+      "type": "string",
+      "description": "Subtype label",
+      "default": ""
+    },
+    "supertype": {
+      "type": "string",
+      "description": "Supertype name or 'token'",
+      "default": "permanent"
+    },
+    "token_type": {
+      "type": "string",
+      "description": "For token entries, the supertype name whose template determines the render style",
+      "default": "permanent"
+    },
+    "stats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Additional stats",
+      "default": []
+    },
+    "fabled": {
+      "type": "boolean",
+      "description": "Whether this entry was marked Fabled",
+      "default": false
+    },
+    "basic": {
+      "type": "boolean",
+      "description": "Whether this entry was marked Basic",
+      "default": false
+    },
+    "needs_review": {
+      "type": "boolean",
+      "description": "Whether this entry was flagged for review",
+      "default": false
+    },
+    "income_symbol": {
+      "type": "string",
+      "description": "For Income entries, the chosen type symbol URL",
+      "default": ""
+    },
+    "bonus_mode": {
+      "type": "string",
+      "enum": [
+        "cost",
+        "ability"
+      ],
+      "description": "For Income entries, bonus section render mode",
+      "default": "cost"
+    },
+    "bonus_cost_icons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "For Income entries, bonus cost bar icons",
+      "default": []
+    },
+    "bonus_ability": {
+      "type": "string",
+      "description": "For Income entries, second ability text",
+      "default": ""
+    }
+  },
+  "required": [
+    "folder_id",
+    "name",
+    "supertype"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {},
+    "delete": {}
+  }
+}
