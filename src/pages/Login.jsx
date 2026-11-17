@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { LogIn, Mail, Lock, Loader2 } from "lucide-react";
 import AuthLayout from "@/components/AuthLayout";
 import GoogleIcon from "@/components/GoogleIcon";
+import { GOOGLE_LOGIN } from "@/config";
 import { appUrl } from '@/lib/appUrl';
 import { safeReturnTo } from '@/lib/authReturnTo';
 
@@ -46,11 +47,13 @@ export default function Login() {
             Create one
           </Link>
           <p className="mt-3 text-xs text-muted-foreground">
-            Coming from the old CardSmith site? Use Google, or create an account with the same email: everything you had will be there.
+            Coming from the old CardSmith site? Create an account with the same email you used there, and everything you had will be waiting.
           </p>
         </>
       }
     >
+      {GOOGLE_LOGIN && (
+        <>
       <Button
         variant="outline"
         className="w-full h-12 text-sm font-medium mb-6"
@@ -68,6 +71,8 @@ export default function Login() {
           <span className="bg-card px-3 text-muted-foreground">or</span>
         </div>
       </div>
+        </>
+      )}
 
       {error && (
         <div className="mb-4 p-3 rounded-lg bg-destructive/10 text-destructive text-sm">
