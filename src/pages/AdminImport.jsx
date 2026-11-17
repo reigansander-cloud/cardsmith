@@ -57,6 +57,19 @@ export default function AdminImport() {
   // Lets the import be started from a script as well as the file picker.
   window.cardsmithImport = run;
 
+  // The old site can also drop its export into the private "imports" bucket
+  // (only admins can read it); this picks up the newest one.
+  async function fromServer() {
+    say('Looking for an export sent from the old site…');
+    const { data: files, error } = await supabase.storage.from('imports').list('', { sortBy: { column: 'created_at', order: 'desc' } });
+    const file = (files || []).find((f) => f.name.endsWith('.json'));
+    if (error || !file) { say('No export found yet.'); return; }
+    const { data: blob, error: dlErr } = await supabase.storage.from('imports').download(file.name);
+    if (dlErr) { say(`Could not read it: ${dlErr.message}`); return; }
+    await run(JSON.parse(await blob.text()));
+    if (window.__cardsmithImportResult?.ok) await supabase.storage.from('imports').remove([file.name]);
+  }
+
   async function onFile(e) {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -75,7 +88,11 @@ export default function AdminImport() {
         Choose the cardsmith-export.json file downloaded from the old site. Records keep their ids, so
         running it again updates instead of duplicating.
       </p>
-      <input type="file" accept=".json,application/json" onChange={onFile} disabled={busy} className="mb-6 block" />
+      <div className="flex flex-wrap items-center gap-4 mb-6">
+        <Button onClick={fromServer} disabled={busy}>Import export sent from the old site</Button>
+        <span className="text-sm text-muted-foreground">or choose the file:</span>
+        <input type="file" accept=".json,application/json" onChange={onFile} disabled={busy} />
+      </div>
       <pre className="text-xs bg-muted p-4 rounded whitespace-pre-wrap min-h-[6rem]">{log.join('\n') || 'Waiting for a file…'}</pre>
       {done && <Button asChild className="mt-6"><Link to="/clans">Open Clans</Link></Button>}
     </div>
