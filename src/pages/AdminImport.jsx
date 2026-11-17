@@ -46,7 +46,7 @@ export default function AdminImport() {
       if (exp.problems?.length) say(`Note: the export reported problems with: ${exp.problems.join('; ')}`);
       window.__cardsmithImportResult = { ok: true, records: n, assetFailures: assets.failed, fileFailures: files.failed };
       setDone(true);
-      checkUserAuth();
+      checkUserAuth({ silent: true });
     } catch (err) {
       say(`Stopped: ${err.message || err}`);
       window.__cardsmithImportResult = { ok: false, error: err.message || String(err) };
