@@ -69,6 +69,24 @@ export default function AdminImport() {
       if (e.data?.type === 'cardsmith-export' && e.data.payload?.entities) runRef.current(e.data.payload);
     };
     window.addEventListener('message', onMessage);
+    // Or the old site opens this page with its export packed into the
+    // address after "#export=" (gzip + base64url). The part after # never
+    // leaves the browser.
+    if (window.location.hash.startsWith('#export=')) {
+      const packed = window.location.hash.slice('#export='.length);
+      window.history.replaceState(null, '', window.location.pathname);
+      (async () => {
+        try {
+          const b64 = packed.replace(/-/g, '+').replace(/_/g, '/');
+          const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+          const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+          const exp = JSON.parse(await new Response(stream).text());
+          if (exp?.entities) runRef.current(exp);
+        } catch (err) {
+          setLog([`Could not read the export in the address: ${err.message || err}`]);
+        }
+      })();
+    }
     try { window.opener?.postMessage({ type: 'cardsmith-import-ready' }, '*'); } catch { /* no opener */ }
     return () => window.removeEventListener('message', onMessage);
   }, [user?.role]);
