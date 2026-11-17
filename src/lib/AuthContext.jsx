@@ -12,8 +12,10 @@ export const AuthProvider = ({ children }) => {
   const [authError, setAuthError] = useState(null);
   const [authChecked, setAuthChecked] = useState(false);
 
-  const checkUserAuth = useCallback(async () => {
-    setIsLoadingAuth(true);
+  // silent: refresh in the background without swapping the page for a
+  // loading spinner (which would unmount whatever is open, e.g. a game).
+  const checkUserAuth = useCallback(async ({ silent = false } = {}) => {
+    if (!silent) setIsLoadingAuth(true);
     try {
       const currentUser = await base44.auth.me();
       setUser(currentUser);
@@ -24,7 +26,7 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(false);
       setAuthError({ type: 'auth_required', message: 'Authentication required' });
     } finally {
-      setIsLoadingAuth(false);
+      if (!silent) setIsLoadingAuth(false);
       setAuthChecked(true);
     }
   }, []);
@@ -35,7 +37,7 @@ export const AuthProvider = ({ children }) => {
     const { data } = supabase.auth.onAuthStateChange((event) => {
       if (event === 'SIGNED_IN' || event === 'SIGNED_OUT' || event === 'USER_UPDATED') {
         // Defer: Supabase recommends not awaiting other calls inside this callback.
-        setTimeout(() => checkUserAuth(), 0);
+        setTimeout(() => checkUserAuth({ silent: true }), 0);
       }
     });
     return () => data.subscription.unsubscribe();
